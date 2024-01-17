@@ -15,7 +15,6 @@ export class AppController {
       this.appService.getHello() +
       ' ' +
       process.env.VERCEL_URL +
-      process.env.BOT_DOMAIN +
       +' ' +
       this.configService.get<string>('bot.domain')
     );

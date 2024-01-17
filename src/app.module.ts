@@ -11,7 +11,9 @@ import { botEnvConfig, sgidEnvConfig } from './config/env.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [sgidEnvConfig, botEnvConfig] }),
+    ConfigModule.forRoot({
+      load: [sgidEnvConfig, botEnvConfig],
+    }),
     TelegrafModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

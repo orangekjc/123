@@ -16,6 +16,8 @@ export class AppController {
       ' ' +
       process.env.VERCEL_URL +
       +' ' +
+      process.env.VERCEL_BRANCH_URL +
+      ' ' +
       this.configService.get<string>('bot.domain')
     );
   }

@@ -17,7 +17,7 @@ import { BotModule } from './bot/bot.module';
         token: process.env.BOT_TOKEN,
         launchOptions: {
           webhook: {
-            domain: process.env.BOT_DOMAIN,
+            domain: process.env.VERCEL_URL,
             hookPath: process.env.BOT_PATH,
           },
         },

@@ -23,7 +23,9 @@ export class AuthService {
   constructor(private configService: ConfigService) {
     this.sgidClient = new SgidClient({
       redirectUri: `${this.configService.get<string>(
-        'BOT_DOMAIN',
+        `${
+          process.env.VERCEL_ENV === 'production' ? 'VERCEL_URL' : 'BOT_DOMAIN'
+        }`,
       )}/auth/sgid/callback`,
       clientId: this.configService.get<string>('SGID_CLIENT_ID'),
       clientSecret: this.configService.get<string>('SGID_CLIENT_SECRET'),

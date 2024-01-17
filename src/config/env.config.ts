@@ -9,5 +9,5 @@ export const sgidEnvConfig = registerAs('sgid', () => ({
 export const botEnvConfig = registerAs('bot', () => ({
   token: process.env.BOT_TOKEN,
   path: process.env.BOT_PATH || '/webhook',
-  domain: process.env.BOT_DOMAIN || `https://${process.env.VERCEL_URL}`,
+  domain: process.env.BOT_DOMAIN || `https://${process.env.VERCEL_BRANCH_URL}`,
 }));

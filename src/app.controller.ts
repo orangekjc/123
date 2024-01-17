@@ -14,8 +14,6 @@ export class AppController {
     return (
       this.appService.getHello() +
       ' ' +
-      process.env.VERCEL_URL +
-      +' ' +
       process.env.VERCEL_BRANCH_URL +
       ' ' +
       this.configService.get<string>('bot.domain')

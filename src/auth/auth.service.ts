@@ -22,14 +22,12 @@ export class AuthService {
   private readonly sgidClient: SgidClient;
   constructor(private configService: ConfigService) {
     this.sgidClient = new SgidClient({
-      redirectUri: `https://${this.configService.get<string>(
-        `${
-          process.env.VERCEL_ENV === 'production' ? 'VERCEL_URL' : 'BOT_DOMAIN'
-        }`,
+      redirectUri: `${this.configService.get<string>(
+        'bot.domain',
       )}/auth/sgid/callback`,
-      clientId: this.configService.get<string>('SGID_CLIENT_ID'),
-      clientSecret: this.configService.get<string>('SGID_CLIENT_SECRET'),
-      privateKey: this.configService.get<string>('SGID_PRIVATE_KEY'),
+      clientId: this.configService.get<string>('sgid.client_id'),
+      clientSecret: this.configService.get<string>('sgid.client_secret'),
+      privateKey: this.configService.get<string>('sgid.private_key'),
     });
   }
 

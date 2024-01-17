@@ -7,6 +7,12 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return (
+      this.appService.getHello() +
+      ' ' +
+      process.env.VERCEL_URL +
+      ' ' +
+      process.env.BOT_DOMAIN
+    );
   }
 }

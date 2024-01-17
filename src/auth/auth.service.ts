@@ -22,7 +22,7 @@ export class AuthService {
   private readonly sgidClient: SgidClient;
   constructor(private configService: ConfigService) {
     this.sgidClient = new SgidClient({
-      redirectUri: `${this.configService.get<string>(
+      redirectUri: `https://${this.configService.get<string>(
         `${
           process.env.VERCEL_ENV === 'production' ? 'VERCEL_URL' : 'BOT_DOMAIN'
         }`,

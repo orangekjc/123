@@ -1,21 +1,23 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Request } from 'express';
+import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly appService: AppService,
+  ) {}
 
   @Get()
-  getHello(@Req() req: Request): string {
+  getHello(): string {
     return (
       this.appService.getHello() +
       ' ' +
       process.env.VERCEL_URL +
-      ' ' +
       process.env.BOT_DOMAIN +
-      ' ' +
-      req.headers.host
+      +' ' +
+      this.configService.get<string>('bot.domain')
     );
   }
 }

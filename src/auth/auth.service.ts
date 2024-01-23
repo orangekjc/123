@@ -5,11 +5,12 @@ import SgidClient, {
   generateNonce,
 } from '@opengovsg/sgid-client';
 import { SgidAuthStatus } from './auth.constants';
+import { UserService } from '../user/user.service';
 
 const SGID_SCOPE_PUBLIC_OFFICER_DETAILS = 'pocdex.public_officer_details';
 const SGID_SCOPE_TO_ACCESS = ['openid', SGID_SCOPE_PUBLIC_OFFICER_DETAILS];
 
-interface PublicOfficerDetails {
+export interface PublicOfficerDetails {
   work_email: string;
   agency_name: string;
   department_name: string;
@@ -20,7 +21,10 @@ interface PublicOfficerDetails {
 @Injectable()
 export class AuthService {
   private readonly sgidClient: SgidClient;
-  constructor(private configService: ConfigService) {
+  constructor(
+    private configService: ConfigService,
+    private userService: UserService,
+  ) {
     this.sgidClient = new SgidClient({
       redirectUri: `${this.configService.get<string>(
         'bot.domain',
@@ -63,11 +67,13 @@ export class AuthService {
     code,
     codeVerifier,
     nonce,
+    chatId,
   }: {
     code: string;
     codeVerifier: string;
     nonce: string;
-  }): Promise<SgidAuthStatus> {
+    chatId: string;
+  }): Promise<{ status: SgidAuthStatus; poDetails?: PublicOfficerDetails[] }> {
     const { accessToken, sub } = await this.sgidClient.callback({
       code,
       codeVerifier,
@@ -78,13 +84,16 @@ export class AuthService {
       const rawPoDetails =
         userInfo.data[SGID_SCOPE_PUBLIC_OFFICER_DETAILS] ?? null;
       const poDetails: PublicOfficerDetails[] = JSON.parse(rawPoDetails);
-
+      await this.userService.storePublicOfficer({ chatId, poDetails });
       if (!poDetails || poDetails.length === 0) {
-        return SgidAuthStatus.AUTHENTICATED_USER;
+        return { status: SgidAuthStatus.AUTHENTICATED_USER };
       }
-      return SgidAuthStatus.AUTHENTICATED_PUBLIC_OFFICER;
+      return { status: SgidAuthStatus.AUTHENTICATED_PUBLIC_OFFICER, poDetails };
     } catch (err) {
-      return SgidAuthStatus.NOT_AUTHENTICATED;
+      return { status: SgidAuthStatus.NOT_AUTHENTICATED };
     }
+  }
+  test() {
+    return this.userService.getPublicOfficerByChatId('1002055264');
   }
 }

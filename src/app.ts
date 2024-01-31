@@ -39,5 +39,3 @@ export const vercelHandler = async (
   const app = await appPromise;
   app.getHttpAdapter().getInstance()(req, res);
 };
-
-export default vercelHandler;

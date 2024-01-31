@@ -1,19 +1,19 @@
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 
-import { TelegrafModule } from 'nestjs-telegraf';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TelegrafModule } from 'nestjs-telegraf'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { BotModule } from './bot/bot.module';
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { AuthModule } from './auth/auth.module'
+import { BotModule } from './bot/bot.module'
 import {
   botEnvConfig,
   databaseEnvConfig,
   sgidEnvConfig,
-} from './config/env.config';
-import { UserModule } from './user/user.module';
-import { DatabaseModule } from './database/database.module';
+} from './config/env.config'
+import { DatabaseModule } from './database/database.module'
+import { TelegrafFiltersModule } from './filters/telegraf-filters.module'
 
 @Module({
   imports: [
@@ -35,7 +35,7 @@ import { DatabaseModule } from './database/database.module';
       }),
     }),
     DatabaseModule,
-    UserModule,
+    TelegrafFiltersModule,
     AuthModule,
     BotModule,
   ],

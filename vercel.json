@@ -7,6 +7,5 @@
       "use": "@vercel/node"
     }
   ],
-  "outputDirectory": "/dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/app.ts" }]
 }

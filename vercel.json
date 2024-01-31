@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "nest build",
-  "builds": [
-    {
-      "src": "src/app.ts",
-      "use": "@vercel/node"
-    }
-  ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/app.ts" }]
+  "outputDirectory": "/.",
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
 }

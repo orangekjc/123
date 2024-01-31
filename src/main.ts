@@ -1,7 +1,9 @@
-import { appPromise } from './app'
+import { appPromise } from './app';
 
 async function bootstrap() {
-  const app = await appPromise
-  app.listen(3000)
+  const app = await appPromise;
+  app.listen(3000);
 }
-bootstrap()
+bootstrap();
+
+export default bootstrap;
